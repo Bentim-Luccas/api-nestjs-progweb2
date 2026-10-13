@@ -1,62 +1,52 @@
-import { Injectable } from '@nestjs/common';
+// Contém lógicas de negócios relacionadas a alunos. 
 
-@Injectable()
+import { Injectable } from '@nestjs/common';
+import { AlunosRepository } from './alunos.repository.js';
+
+@Injectable() // indica que essa classe pode participar do sistema de injeção de dependência do Nest.
 export class AlunosService {
-  private alunos = [
-    {
-      id: 1,
-      nome: 'Matheus',
-      curso: 'Análise e Desenvolviemnto de Sistemas',
-    },
-    {
-      id: 2,
-      nome: 'Carlos',
-      curso: 'Ciência da Computação',
-    },
-  ];
+  constructor(
+    private readonly alunosRepository:
+      AlunosRepository,
+  ) { }
 
   findAll() {
-    return this.alunos;
+    return this.alunosRepository.findAll();
   }
 
   findById(id: number) {
-    return this.alunos.find((aluno) => aluno.id === id);
+    return this.alunosRepository.findById(id);
   }
 
-  create(nome: string, curso: string) {
-    const novoAluno = {
-      id: this.alunos.length + 1,
+  create(
+    nome: string,
+    email: string,
+    curso: string,
+  ) {
+    return this.alunosRepository.create(
       nome,
+      email,
       curso,
-    };
-
-    this.alunos.push(novoAluno);
-
-    return novoAluno;
+    );
   }
 
-  update(id: number, nome: string, curso: string) {
-    const aluno = this.alunos.find((aluno) => aluno.id === id);
+  async update(
+    id: number,
+    nome: string,
+    email: string,
+    curso: string,
+  ) {
+    await this.alunosRepository.update(
+      id,
+      nome,
+      email,
+      curso,
+    );
 
-    if (!aluno) {
-      return null;
-    }
-
-    aluno.nome = nome;
-    aluno.curso = curso;
-
-    return aluno;
+    return this.alunosRepository.findById(id);
   }
 
   delete(id: number) {
-    const index = this.alunos.findIndex((aluno) => aluno.id === id);
-
-    if (index === -1) {
-      return false;
-    }
-
-    this.alunos.splice(index, 1);
-
-    return true;
+    return this.alunosRepository.delete(id);
   }
 }
