@@ -8,9 +8,9 @@ services:
 
     environment:
       MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: api_rest
+      MYSQL_DATABASE: escola
       MYSQL_USER: api_user
-      MYSQL_PASSWORD: api123
+      MYSQL_PASSWORD: 123456
 
     ports:
       - "3306:3306"
