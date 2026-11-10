@@ -10,7 +10,8 @@ http:
     type: json
     data: |-
       {
-        "nome": "Governança",
+        "nome": "Programação Web 2",
+        
         "cargaHoraria": 40
       }
   auth: inherit

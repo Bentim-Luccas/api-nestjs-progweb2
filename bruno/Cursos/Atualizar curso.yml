@@ -9,7 +9,7 @@ http:
     type: json
     data: |-
       {
-        "nome": "Comunicação"
+        "nome": "Sistemas da Informação"
       }
   auth: inherit
 
